@@ -1,0 +1,160 @@
+<div class="titre-page">
+  <h4>Liste des contrats</h4>
+</div>
+<br>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+  <button class="btn btn-add btn-primary" (click)="openModal(editContratModal , null)">
+    &nbsp;&nbsp;Ajouter
+  </button>
+</div>
+<!-- Tableau des contrats -->
+<div class="datatable mt-3">
+  <table class="table">
+    <thead class="datatable-header">
+      <tr>
+        <th><strong>ID</strong></th>
+        <th><strong>Date début</strong></th>
+        <th><strong>Date fin</strong></th>
+        <th><strong>Montant</strong></th>
+        <th><strong>Type</strong></th>
+        <th><strong>Statut</strong></th>
+        <th><strong>Description</strong></th>
+        <th><strong>Actions</strong></th>
+      </tr>
+    </thead>
+    <tbody class="text-sm">
+      <tr *ngFor="let contrat of contratList">
+        <td>{{ contrat.id }}</td>
+        <td>{{ contrat.dateDebut }}</td>
+        <td>{{ contrat.dateFin }}</td>
+        <td>{{ contrat.montant }}</td>
+        <td>{{ contrat.typeContrat }}</td>
+        <td>
+          <span class="badge"
+                [ngClass]="{
+                  'badge-success': contrat.statut === 'Actif',
+                  'badge-danger': contrat.statut === 'Inactif',
+                  'badge-warning': contrat.statut === 'Terminé'
+                }">
+            {{ contrat.statut }}
+          </span>
+        </td>
+        <td>{{ contrat.description }}</td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm btn-rounded" (click)="onDelete(contrat.id)">
+            <i class="fas fa-trash-alt"></i>
+          </button>  
+          <button type="button" class="btn btn-info btn-sm btn-rounded" (click)="openModal(editContratModal, contrat)">
+            <i class="fas fa-user-edit"></i>
+          </button>
+          <button type="button" class="btn btn-info btn-sm btn-rounded" (click)="openModal(detailContratTemplate, contrat)">
+            <i class="fas fa-info-circle"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal pour ajouter/modifier un contrat -->
+<ng-template #editContratModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ isEditMode ? 'Modifier le contrat' : 'Ajouter un contrat' }}</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <form [formGroup]="contratForm" (ngSubmit)="saveContrat()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="dateDebut">Date début</label>
+          <input type="date" class="form-control" formControlName="dateDebut" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="dateFin">Date fin</label>
+          <input type="date" class="form-control" formControlName="dateFin" />
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="montant">Montant</label>
+          <input type="number" class="form-control" formControlName="montant" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="typeContrat">Type de contrat</label>
+          <input type="text" class="form-control" formControlName="typeContrat" />
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="statut">Statut</label>
+          <select class="form-control" formControlName="statut">
+            <option value="Actif">Actif</option>
+            <option value="Inactif">Inactif</option>
+            <option value="Terminé">Terminé</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="client">Client</label>
+          <select
+          id="client"
+          class="form-control"
+          formControlName="clientId">
+          <option *ngFor="let client of listeClient" [value]="client.client.id">
+            {{ client.firstname }} {{ client.lastname }}
+          </option>
+        </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="description">Description</label>
+          <textarea class="form-control" formControlName="description"></textarea>
+        </div>
+      </div>
+    </div>    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+      <button type="submit" class="btn btn-success">Enregistrer</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #detailContratTemplate let-modal>
+  <div class="modal-header bg-info text-white">
+    <h5 class="modal-title">📄 Détails du contrat</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6 mb-2">
+        <p><strong>ID :</strong> {{ selectedContrat?.id }}</p>
+        <p><strong>Date de début :</strong> {{ selectedContrat?.dateDebut | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Date de fin :</strong> {{ selectedContrat?.dateFin | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Montant :</strong> {{ selectedContrat?.montant | currency:'EUR':'symbol' }}</p>
+      </div>
+      <div class="col-md-6 mb-2">
+        <p><strong>Statut :</strong> {{ selectedContrat?.statut }}</p>
+        <p><strong>Type de contrat :</strong> {{ selectedContrat?.typeContrat }}</p>
+        <p><strong>Description :</strong> {{ selectedContrat?.description }}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Client :</strong> {{ selectedContrat?.client?.user.firstname }}  {{ selectedContrat?.client?.user.lastname }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Commercial :</strong> {{ selectedContrat?.commercial?.user.firstname }} {{ selectedContrat?.commercial?.user.lastname }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+  </div>
+</ng-template>

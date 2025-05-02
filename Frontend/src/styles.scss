@@ -1,0 +1,47 @@
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* You can add global styles to this file, and also import other style files */
+.modal-holder {
+  animation-name: example;
+  animation-duration: 0.3s;
+}
+
+@keyframes example {
+  0% {
+    transform: scale(0.5)
+  }
+
+  100% {
+    transform: scale(1)
+  }
+}
+
+.carousel-item {
+  transition: opacity 0.7s ease !important;
+  position: absolute !important;
+  display: block !important;
+  opacity: 0;
+}
+
+.carousel-item.active {
+  position: relative !important;
+  opacity: 1;
+}
+
+
+
+
+.titre-page {
+  display: flex;
+  padding: 10px 0; /* Un peu d'espace autour du titre */
+}
+
+.titre-page h4 {
+  font-size: 1.7rem; /* Taille du texte augmentée pour plus d'impact */
+  font-weight: 600; /* Gras modéré */
+  margin: 0;
+  text-transform: uppercase; /* Tout en majuscules */
+  color: #333; /* Couleur du texte */
+  letter-spacing: 1px; /* Espacement des lettres pour plus de lisibilité */
+}

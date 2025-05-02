@@ -1,0 +1,94 @@
+<div class="titre-page">
+    <h4>Liste des rendez-vous</h4>
+  </div>
+  <br>
+  
+  <div class="datatable mt-3">
+    <table class="table">
+      <thead class="datatable-header">
+        <tr>
+          <th><strong>ID</strong></th>
+          <th><strong>Client</strong></th>
+          <th><strong>Date et heure</strong></th>
+          <th><strong>Lieu</strong></th>
+          <th><strong>Description</strong></th>
+          <th><strong>Status</strong></th>
+          <th><strong>Actions</strong></th>
+        </tr>
+      </thead>
+      <tbody class="text-sm">
+        <tr *ngFor="let rendezVous of rendezVousList">
+          <td>{{ rendezVous.id }}</td>
+          <td>{{ rendezVous.client.user.firstname }} {{ rendezVous.client.user.lastname }}</td>
+          <td>{{ rendezVous.dateHeure | date: 'short' }}</td>
+          <td>{{ rendezVous.lieu }}</td>
+          <td>{{ rendezVous.description }}</td>  
+          <td>
+            <span *ngIf="rendezVous.status === '0' || rendezVous.status === 0 || rendezVous.status === 'EN_ATTENTE'" class="text-warning">En attente</span>
+            <span *ngIf="rendezVous.status === 'Refuse' || rendezVous.status === 'REFUSE'" class="text-danger">Refusé</span>
+            <span *ngIf="rendezVous.status === 'Valide' || rendezVous.status === 'Valide'" class="text-success">Validé</span>
+          </td>          
+          <td>
+            <button type="button" class="btn btn-danger btn-sm btn-rounded" (click)="onDelete(rendezVous.id)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button type="button" class="btn btn-info btn-sm btn-rounded" (click)="changeStatus(rendezVous.id , content)">
+              <i class="fas fa-user-edit"></i>
+            </button>
+            <ng-container class="ml-auto">
+            </ng-container>
+          </td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+   
+<!-- ... -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Changer le status de rendez-vous et affecter un commercial</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-row align-items-end">
+        <div class="col-md-6">
+          <div class="form-group mb-0">
+            <label for="status">Status</label>
+            <select
+              id="status"
+              class="form-control full-width-select"
+              [(ngModel)]="selectedStatus"
+              name="status">
+              <option value="Valide">Validé</option>
+              <option value="Refuse">Refusé</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group mb-0">
+            <label for="commercial">Liste des commerciaux</label>
+            <select
+              id="commercial"
+              class="form-control full-width-select"
+              [(ngModel)]="selectedCommercialId"
+              name="commercial">
+              <option *ngFor="let commercial of listeCommercial" [value]="commercial.commercial.id">
+                {{ commercial.firstname }} {{ commercial.lastname }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+    
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)="submitStatusChange()">Enregistrer</button>
+  </div>
+</ng-template>
+
+  

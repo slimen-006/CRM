@@ -1,0 +1,49 @@
+<div class="titre-page">
+    <h4> Suivi des rendez-vous</h4>
+  </div>
+  <br>
+  
+
+  <div class="datatable mt-3">
+    <table class="table">
+      <thead class="datatable-header">
+        <tr>
+          <th><strong>ID</strong></th>
+          <th><strong>Client</strong></th>
+          <th><strong>Date et heure</strong></th>
+          <th><strong>Lieu</strong></th>
+          <th><strong>Description</strong></th>
+          <th><strong>Status</strong></th>
+          <th><strong>Actions</strong></th>
+        </tr>
+      </thead>
+      <tbody class="text-sm">
+        <tr *ngFor="let rendezVous of rendezVousList">
+          <td>{{ rendezVous.id }}</td>
+          <td>{{ rendezVous.client.user.firstname }} {{ rendezVous.client.user.lastname }}</td>
+          <td>{{ rendezVous.dateHeure | date: 'short' }}</td>
+          <td>{{ rendezVous.lieu }}</td>
+          <td>{{ rendezVous.description }}</td>
+          <td>
+            <span *ngIf="rendezVous.status === '0'" class="badge badge-warning">En attente</span>
+            <span *ngIf="rendezVous.status === 'Refuse'" class="badge badge-danger">Refusé</span>
+            <span *ngIf="rendezVous.status === 'Planifie'" class="badge badge-primary">Planifié</span>
+            <span *ngIf="rendezVous.status === 'Valide'" class="badge badge-success">Validé</span>
+          </td>
+          <td>
+            <!-- Bouton Modifier -->
+            <button class="dropdown" ngbDropdown placement="bottom-right">
+              <a class="dropdown-toggle card-drop" data-toggle="dropdown" ngbDropdownToggle aria-expanded="false">
+                <i class="btn btn-sm btn-rounded fas fa-user-times font-size-13"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                <li><a class="dropdown-item" (click)="updateStatus(rendezVous.id, 'Refuse')"> &nbsp; Refusé</a></li>
+                <li><a class="dropdown-item" (click)="updateStatus(rendezVous.id, 'Planifie')"> &nbsp; Planifié</a></li>
+              </ul>
+            </button>
+          </td>             
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

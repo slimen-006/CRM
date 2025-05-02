@@ -1,0 +1,8 @@
+Gestion des comptes :  comercial  + client => and admin
+-Gerer les contrat : comercial  Crud + selectionné le client  + satus de conntrat + liste de contrat avec le status conclus => lesting wehdaha . 
+
+-Gestion de rendez-vous : le client envoyer le rendez-vous validation coté admin et selecionne le commercial -- validation par commercial
+
+-Gestion de contact : Commercial 
+ 
+
