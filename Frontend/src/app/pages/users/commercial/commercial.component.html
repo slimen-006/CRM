@@ -1,102 +1,102 @@
 
- 
-<div class="titre-page">
-  <h4>compte commerical</h4>
-</div>  
- <br>
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-    <div class="d-flex gap-2">
-      <button class="btn btn-add btn-primary"   data-toggle="modal"
-      data-target="#verificationModal" (click)="verificationModal(content)">
-       &nbsp;&nbsp;Ajouter
-      </button>
-      
-    </div>
-   </div>
-</div>
-
-<div class="">
-  <div class="datatable">
-    <table class="table" >
-      <thead class="datatable-header">
-        <tr>
-            <th>
-              <strong>
-                {{'ID' }}
-              </strong>
-            </th>
-            <th>
-              <strong>
-                {{'Last Name' }}
-              </strong>
-            </th>
-            <th>
-              <strong>
-                {{'First name' }}
-              </strong>
-            </th>
-            <th>
-              <strong>
-                Email
-              </strong>
-            </th>
-            <th>
-              <strong>
-               Status
-              </strong>
-            </th>
-             <th>
-              <strong>
-                {{'Action' }}
-              </strong>
-            </th>
-        </tr>
-      </thead>
-      <tbody class="text-sm">
-        <tr class="row-data" *ngFor="let responsible of listeCommercial">
-          <td>
-            {{responsible.id}}
-          </td>
-          <td>
-            {{responsible.firstname}}
-          </td>
-          <td>
-            {{responsible.lastname}}
-          </td>
-          <td>
-            {{responsible.email}}
-          </td>
-          <td>
-            <i *ngIf="responsible.status == '0'" style="color: #ff9800;" class="fas  me-1"> En attente</i>
-            <i *ngIf="responsible.status == 'Refuse'" class="fas  text-danger me-1">
-              {{responsible.status}}</i>
-            <i *ngIf="responsible.status == 'Accept'" class="fas  text-success me-1">
-              {{responsible.status}}</i> 
-          </td>
-          <td  >
-            <ng-container class="ml-auto">
-
-              <button type="button" class="btn btn-info btn-sm btn-rounded"   (click)="onClickEdit(responsible.id! , content)"><i class="fas fa-user-edit"></i></button>&nbsp;
-
-              <button  class="dropdown" ngbDropdown placement="bottom-right">
-                <a class="dropdown-toggle card-drop" data-toggle="dropdown" ngbDropdownToggle aria-expanded="false">
-                  <i class="btn  btn-sm btn-rounded fas fa-user-times font-size-13"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu >  
-                  <li><a  class="dropdown-item"  (click)="updateStatus(responsible.id,1)"> &nbsp;Accepted</a></li>
-                  <li><a  class="dropdown-item" (click)="updateStatus(responsible.id,0)"> &nbsp; Refused</a></li>
-                </ul>
-              </button>
   
-            </ng-container>
-
-            
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="titre-page">
+    <h4>compte commerical</h4>
+  </div>  
+  <br>
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div class="d-flex gap-2">
+        <button class="btn btn-add btn-primary"   data-toggle="modal"
+        data-target="#verificationModal" (click)="verificationModal(content)">
+        &nbsp;&nbsp;Ajouter
+        </button>
+        
+      </div>
+    </div>
   </div>
+
+  <div class="">
+    <div class="datatable">
+      <table class="table" >
+        <thead class="datatable-header">
+          <tr>
+              <th>
+                <strong>
+                  {{'ID' }}
+                </strong>
+              </th>
+              <th>
+                <strong>
+                  {{'Last Name' }}
+                </strong>
+              </th>
+              <th>
+                <strong>
+                  {{'First name' }}
+                </strong>
+              </th>
+              <th>
+                <strong>
+                  Email
+                </strong>
+              </th>
+              <th>
+                <strong>
+                Status
+                </strong>
+              </th>
+              <th>
+                <strong>
+                  {{'Action' }}
+                </strong>
+              </th>
+          </tr>
+        </thead>
+        <tbody class="text-sm">
+          <tr class="row-data" *ngFor="let responsible of listeCommercial">
+            <td>
+              {{responsible.id}}
+            </td>
+            <td>
+              {{responsible.firstname}}
+            </td>
+            <td>
+              {{responsible.lastname}}
+            </td>
+            <td>
+              {{responsible.email}}
+            </td>
+            <td>
+              <i *ngIf="responsible.status == '0'" style="color: #ff9800;" class="fas  me-1"> En attente</i>
+              <i *ngIf="responsible.status == 'Refuse'" class="fas  text-danger me-1">
+                {{responsible.status}}</i>
+              <i *ngIf="responsible.status == 'Accept'" class="fas  text-success me-1">
+                {{responsible.status}}</i> 
+            </td>
+            <td  >
+              <ng-container class="ml-auto">
+
+                <button type="button" class="btn btn-info btn-sm btn-rounded"   (click)="onClickEdit(responsible.id! , content)"><i class="fas fa-user-edit"></i></button>&nbsp;
+
+                <button  class="dropdown" ngbDropdown placement="bottom-right">
+                  <a class="dropdown-toggle card-drop" data-toggle="dropdown" ngbDropdownToggle aria-expanded="false">
+                    <i class="btn  btn-sm btn-rounded fas fa-user-times font-size-13"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu >  
+                    <li><a  class="dropdown-item"  (click)="updateStatus(responsible.id,1)"> &nbsp;Accepted</a></li>
+                    <li><a  class="dropdown-item" (click)="updateStatus(responsible.id,0)"> &nbsp; Refused</a></li>
+                  </ul>
+                </button>
+    
+              </ng-container>
+
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
  
 
@@ -110,7 +110,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-      <h5 class="modal-title mt-0">Gérer compte babysitter</h5>
+      <h5 class="modal-title mt-0">Gérer compte commercial</h5>
     
       <button type="button" class="btn-close" aria-label="Close" (click)="hidenModal()">
       </button>

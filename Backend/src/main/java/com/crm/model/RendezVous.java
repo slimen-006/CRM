@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class RendezVous {
+public class    RendezVous {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;

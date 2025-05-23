@@ -12,7 +12,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AdminServiceImpl  implements AdminService{
+public class
+AdminServiceImpl  implements AdminService{
 
     private final AdminRepository adminRepository ;
 
